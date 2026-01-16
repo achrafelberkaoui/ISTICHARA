@@ -1,7 +1,7 @@
 <?php 
 include __DIR__ . '/layout/header.php'; ?>
 
-<form method="POST" action="/prestataire">
+<form method="POST" action="avocat/creatAvocat">
     <h2>Ajouter Prestataire</h2>
 
     <select name="type" id="type">
@@ -11,17 +11,28 @@ include __DIR__ . '/layout/header.php'; ?>
     </select>
 
     <input type="text" name="nom" placeholder="Nom">
-    <input type="text" name="ville" placeholder="Ville">
-
+    <label for="ville_id">VILLE</label>
+    <select name="ville_id">
+        <option value="1">Rabat</option>
+        <option value="2">Casablanca</option>
+    </select>
+    <input type="number" name="annee_Experience" placeholder="Annee Experience">
+    
     <div id="avocatFields" style="display:none;">
         <input type="text" name="specialite" placeholder="Spécialité">
-        <input type="text" name="barreau" placeholder="Barreau">
+        <label for="consultation_en_ligne">Consultation en ligne</label>
+        <select name="consultation_en_ligne">
+            <option value="1">OUI</option>
+            <option value="2">NON</option>
+        </select>
     </div>
 
     <div id="huissierFields" style="display:none;">
         <input type="text" name="zone" placeholder="Zone d’intervention">
     </div>
-
+    <?php if (!empty($error)) : ?>
+    <p style="color:red"><?= $error ?></p>
+    <?php endif; ?>
     <button type="submit">Enregistrer</button>
 </form>
 
