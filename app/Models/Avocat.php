@@ -1,6 +1,6 @@
 <?php
-namespace Models;
-use Models\Personne;
+namespace App\Models;
+use App\Models\Personne;
 
 class Avocat extends Personne{
     private ?string $specialites;

@@ -1,30 +1,49 @@
 <?php
 namespace Controllers;
+use Services\personneValidate;
+use App\Models\Avocat;
+use App\Models\Repository\AvocatRepository;
+use Services\Database;
+
 class AvocatController{
+     private PDO $con;
+    public function __construct(PDO $con)
+    {
+        self::$con = $con;
+    }
     public static function index() {
         include __DIR__ . '/../Views/Avocat.php';
     }
-    public static function creatAvocat(){
-        // var_dump(($_SERVER['REQUEST_METHOD'] === 'POST'));
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            
-            $name = $_POST['nom'] ?? '';
-            var_dump($_POST['nom']);
-            $ville = $_POST['ville_id'] ?? '';
-            var_dump($_POST['ville_id']);
-            $consultation = $_POST['consultation_en_ligne'] ?? '';
-            $specialite = $_POST['specialite'] ?? '';
-            $annee_Experience = $_POST['annee_Experience'] ?? '';
-            if (empty($name) || empty($ville) || empty($consultation) || empty($specialite) || empty($annee_Experience)) {
-                $error = "Tous les champs sont obligatoires";
-                include __DIR__ . '/../Views/formulaire.php';
-            return;
-            }
+    public static function creatNew(){
 
-        }else{
-            echo "hhhhhhhh";
-        $error = '';
+        if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+            $error = '';
         include __DIR__ . '/../Views/formulaire.php';
+        return;
         }
+    $data = $_POST;
+    // var_dump($_POST['type']);
+    $valid = new personneValidate();
+    $error = $valid->validate($data);
+    // var_dump($error);
+    if($error){
+        include __DIR__ . '/../Views/formulaire.php';
+        return;
+    }
+    if($_POST['type']=== 'avocat'){
+            $avocat = new Avocat(
+                $data['nom'],
+                null,
+                $data['annee_Experience'],
+                $data['ville_id'],
+                $data['specialite'],
+                $data['consultation_en_ligne']
+            );
+        $con = Database::getCon();
+        $repoAVoc = new AvocatRepository($con);
+        $repoAVoc->create($avocat);
+    }
+
+
     }
 }

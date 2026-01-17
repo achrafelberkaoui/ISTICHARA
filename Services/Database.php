@@ -1,5 +1,6 @@
 <?php
-namespace Service;
+namespace Services;
+use PDO;
 class Database{
     private static string $localhost = "localhost";
     private static string $dbName = "istichara";

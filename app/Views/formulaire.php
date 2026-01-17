@@ -1,8 +1,11 @@
 <?php 
 include __DIR__ . '/layout/header.php'; ?>
 
-<form method="POST" action="avocat/creatAvocat">
+<form method="POST" action="/istichara/public/avocat/creatNew">
     <h2>Ajouter Prestataire</h2>
+    <?php if (!empty($succes)) : ?>
+    <p style="color:green"><?= $succes ?></p>
+    <?php endif; ?>
 
     <select name="type" id="type">
         <option value="">-- Choisir type --</option>
@@ -19,7 +22,13 @@ include __DIR__ . '/layout/header.php'; ?>
     <input type="number" name="annee_Experience" placeholder="Annee Experience">
     
     <div id="avocatFields" style="display:none;">
-        <input type="text" name="specialite" placeholder="Spécialité">
+        <label for="specialite">Specialite</label>
+            <select name="specialite">
+            <option value="Droit_penal">Droit Penal</option>
+            <option value="civil">Civil</option>
+            <option value="famille">Famille</option>
+            <option value="affaires">Affaires</option>
+        </select>    
         <label for="consultation_en_ligne">Consultation en ligne</label>
         <select name="consultation_en_ligne">
             <option value="1">OUI</option>
@@ -28,7 +37,12 @@ include __DIR__ . '/layout/header.php'; ?>
     </div>
 
     <div id="huissierFields" style="display:none;">
-        <input type="text" name="zone" placeholder="Zone d’intervention">
+        <label for="types_actes">TYPES ACTES</label>
+        <select name="types_actes">
+            <option value="Signification">Signification</option>
+            <option value="execution">Execution</option>
+            <option value="constats">Constats</option>
+        </select>    
     </div>
     <?php if (!empty($error)) : ?>
     <p style="color:red"><?= $error ?></p>
@@ -36,6 +50,6 @@ include __DIR__ . '/layout/header.php'; ?>
     <button type="submit">Enregistrer</button>
 </form>
 
-<script src=  "../public/script.js"></script>
+<script src=  "/istichara/public/script.js"></script>
 
 <?php include __DIR__ . '/layout/footer.php'; ?>

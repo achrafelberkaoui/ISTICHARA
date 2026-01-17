@@ -1,6 +1,6 @@
 <?php
 namespace Controllers;
-use Models\Avocat;
+use App\Models\Avocat;
 class FormulaireController{
     public static function index() {
         include __DIR__ . '/../Views/formulaire.php';
